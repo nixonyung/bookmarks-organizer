@@ -1,0 +1,17 @@
+services:
+  server:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    user: "${MY_UID}:${MY_GID}"
+    environment:
+      PORT: ${PORT}
+    env_file:
+      - ../.env
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - ../data:/app/data:ro
+      - ../templates:/app/templates:ro
+      - ../out:/app/out
+    restart: unless-stopped
